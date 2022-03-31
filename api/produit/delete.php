@@ -18,7 +18,7 @@
   $data = json_decode(file_get_contents("php://input"));
 
   // Set ID to UPDATE
-  $produit->id = $data->id;
+  $produit->token = $data->token;
 
   // Delete post
   if($produit->delete()) {

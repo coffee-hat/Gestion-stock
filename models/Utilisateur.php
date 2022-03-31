@@ -75,8 +75,9 @@ class Utilisateur{
     public function update(){
       // Create query
       $query = 'UPDATE ' . $this->table . '
-                                SET nom = :nom, prenom = :prenom, token = :token, role = :role
-                                WHERE id = :id';
+                                SET nom = :nom, prenom = :prenom, token = :token, role = :role, updated_at = :updated_at
+                                WHERE token = :token';
+                               
   
       // Prepare statement
       $stmt = $this->conn->prepare($query);
@@ -86,14 +87,14 @@ class Utilisateur{
       $this->prenom = htmlspecialchars(strip_tags($this->prenom));
       $this->token = htmlspecialchars(strip_tags($this->token));
       $this->role = htmlspecialchars(strip_tags($this->role));
-      $this->id = htmlspecialchars(strip_tags($this->id));
+      $this->updated_at = htmlspecialchars(strip_tags($this->updated_at));
   
       // Bind data
       $stmt->bindParam(':nom', $this->nom);
       $stmt->bindParam(':prenom', $this->prenom);
       $stmt->bindParam(':token', $this->token);
       $stmt->bindParam(':role', $this->role);
-      $stmt->bindParam(':id', $this->id);
+      $stmt->bindParam(':updated_at', $this->updated_at);
   
       // Execute query
       if($stmt->execute()){
@@ -109,16 +110,16 @@ class Utilisateur{
     //delete
     public function delete(){
       // Create query
-      $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+      $query = 'DELETE FROM ' . $this->table . ' WHERE token = :token';
   
       // Prepare statement
       $stmt = $this->conn->prepare($query);
   
       // Clean data
-      $this->id = htmlspecialchars(strip_tags($this->id));
+      $this->token = htmlspecialchars(strip_tags($this->token));
   
       // Bind data
-      $stmt->bindParam(':id', $this->id);
+      $stmt->bindParam(':token', $this->token);
   
       // Execute query
       if($stmt->execute()){

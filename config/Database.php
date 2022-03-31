@@ -2,7 +2,7 @@
   class Database {
     // DB Params
     private $host = 'localhost';
-    private $db_name = 'gestion_stock';
+    private $db_name = 'api_5HDS_gestion_stock';
     private $username = 'root';
     private $password = '';
     private $conn;

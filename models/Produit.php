@@ -69,13 +69,7 @@
 
       return false;
     }
-    
-
-     
-    
-    
- 
-
+  
   // Update Category
   public function update() {
     // Create query
@@ -85,9 +79,10 @@
       token = :token,
       prix = :prix,
       stock = :stock,
-      reference = :reference
+      reference = :reference,
+      updated_at = :updated_at
     WHERE
-      id = :id';
+      token = :token';
     
       //Prepare statement
       $stmt = $this->conn->prepare($query);
@@ -98,7 +93,7 @@
       $this->prix = htmlspecialchars(strip_tags($this->prix));
       $this->stock = htmlspecialchars(strip_tags($this->stock));
       $this->reference = htmlspecialchars(strip_tags($this->reference));
-      $this->id = htmlspecialchars(strip_tags($this->id));
+      $this->updated_at = htmlspecialchars(strip_tags($this->updated_at));
   
       // Bind data
       $stmt->bindParam(':description', $this->description);
@@ -106,11 +101,11 @@
       $stmt->bindParam(':prix', $this->prix);
       $stmt->bindParam(':stock', $this->stock);
       $stmt->bindParam(':reference', $this->reference);
-      $stmt->bindParam(':id', $this->id);
+      $stmt->bindParam(':updated_at', $this->updated_at);
 
     // Execute query
     if($stmt->execute()) {
-      return false;
+      return true;
     }
 
     // Print error if something goes wrong
@@ -122,16 +117,16 @@
   // Delete Produit
   public function delete() {
     // Create query
-    $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+    $query = 'DELETE FROM ' . $this->table . ' WHERE token = :token';
 
     // Prepare statement
     $stmt = $this->conn->prepare($query);
 
     // Clean data
-    $this->id = htmlspecialchars(strip_tags($this->id));
+    $this->token = htmlspecialchars(strip_tags($this->token));
 
     // Bind data
-    $stmt->bindParam(':id', $this->id);
+    $stmt->bindParam(':token', $this->token);
 
     // Execute query
     if($stmt->execute()) {

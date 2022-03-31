@@ -13,17 +13,21 @@
 
   // Instantiate blog post object
   $produit = new Produit($db);
+  
+  $Object = new DateTime();  
+  $DateAndTime = $Object->format("Y-m-d h:i:s");
 
   // Get raw posted data
   $data = json_decode(file_get_contents("php://input"));
 
-  // Set ID to UPDATE
-  $produit->id = $data->id;
+
+  // Set params to UPDATE
   $produit->description = $data->description;
   $produit->token = $data->token;
   $produit->prix = $data->prix;
   $produit->stock = $data->stock;
   $produit->reference = $data->reference;
+  $produit->updated_at = $DateAndTime;
 
   // Update post
   if($produit->update()) {
